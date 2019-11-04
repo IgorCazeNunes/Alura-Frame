@@ -1,15 +1,17 @@
 class Mensagem {
 
-    constructor(texto='') {
+    constructor(texto='', funcAtualizaView) {
         this._texto = texto;
+        this._funcAtualizaView = funcAtualizaView;
     }
 
     get texto() {
         return this._texto;
     }
 
-    set texto(texto) {
+    setTexto(texto) {
         this._texto = texto;
+        this._funcAtualizaView(this);
     }
     
 }
