@@ -1,13 +1,11 @@
 class ListaNegociacoes {
 
-    constructor(funcAtualizaView) {
+    constructor() {
         this._negociacoes = [];
-        this._funcAtualizaView = funcAtualizaView;
     }
 
     adiciona(negociacao) {
         this._negociacoes.push(negociacao);
-        this._funcAtualizaView(this);
     }
 
     get negociacoes() {
@@ -16,7 +14,6 @@ class ListaNegociacoes {
 
     esvaziar() {
         this._negociacoes = [];
-        this._funcAtualizaView(this);
     }
     
 }
