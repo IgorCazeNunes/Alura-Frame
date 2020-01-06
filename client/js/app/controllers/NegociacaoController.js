@@ -27,26 +27,29 @@ class NegociacaoController {
 		this._limpaForm();
 	}
 
-	importaNegociacoes() {
-
-		let service = new NegociacaoService();
-		service.obterNegociacoesDaSemana((error, negociacoes) => {
-			
-			if (error) {
-				this._mensagem.texto = error;
-				return;
-			}
-
-			negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-			this._mensagem.texto = 'Negociações importadas com sucesso.';
-		});
-	}
-
 	limpar() {
 		this._listaNegociacoes.esvaziar();
 		this._mensagem.texto = 'Negociações apagadas com sucesso';
 	}
 
+	importaNegociacoes() {
+		let service = new NegociacaoService();
+
+		Promise.all([
+			service.obterNegociacoesDaSemana(), 
+			service.obterNegociacoesDaSemanaRetrasada(), 
+			service.obterNegociacoesDaSemanaAnterior()
+		])
+		.then(negociacoes => {
+			negociacoes
+				.reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])
+				.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+
+			this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+		})
+		.catch(erro => this._mensagem.texto = erro);;
+	}
+	
 	_limpaForm() {
 		this._inputData.focus();
 		this._inputData.value = '';
