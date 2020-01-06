@@ -36,7 +36,7 @@
     </form>
 
     <div class="text-center">
-        <button class="btn btn-primary text-center" type="button">
+        <button onclick="ngController.importaNegociacoes()" class="btn btn-primary text-center" type="button">
             Importar Negociações
         </button>
 
@@ -59,6 +59,7 @@
     <script src="js/app/views/NegociacoesView.js"></script>
     <script src="js/app/services/ProxyFactory.js"></script>
     <script src="js/app/helpers/Bind.js"></script>
+    <script src="js/app/services/NegociacaoService.js"></script>
 
     <script>
         let ngController = new NegociacaoController();

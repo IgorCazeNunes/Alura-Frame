@@ -27,6 +27,21 @@ class NegociacaoController {
 		this._limpaForm();
 	}
 
+	importaNegociacoes() {
+
+		let service = new NegociacaoService();
+		service.obterNegociacoesDaSemana((error, negociacoes) => {
+			
+			if (error) {
+				this._mensagem.texto = error;
+				return;
+			}
+
+			negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+			this._mensagem.texto = 'Negociações importadas com sucesso.';
+		});
+	}
+
 	limpar() {
 		this._listaNegociacoes.esvaziar();
 		this._mensagem.texto = 'Negociações apagadas com sucesso';
