@@ -4,7 +4,7 @@ class HttpService {
         if (!response.ok)
             throw new Error(response.statusText);
 
-        return res;
+        return response;
     }
 
     get(url) {
@@ -22,6 +22,6 @@ class HttpService {
                 body: JSON.stringify(dado)
             })
             .then(response => this._handleErrors(response));
-    }
+    } 
 
 }
